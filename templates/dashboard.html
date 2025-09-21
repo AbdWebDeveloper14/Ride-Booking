@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Welcome, <span id="driverName"></span>!</h1>
+        <p>Here are your rides:</p>
+
+        <button class="btn" id="addRideBtn">Add New Ride</button>
+
+        <table class="rides-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Pickup</th>
+                    <th>Dropoff</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="ridesBody"></tbody>
+        </table>
+
+        <a href="/templates/index.html" class="btn" id="logoutBtn">Logout</a>
+    </div>
+
+    <script>
+        // Show logged-in username/email
+        const driverName = localStorage.getItem("driverName") || "Driver";
+        document.getElementById("driverName").innerText = driverName;
+
+        let rides = [
+            {id: 1, pickup: "Downtown", dropoff: "Airport", price: 15, status: "Pending"},
+            {id: 2, pickup: "Station", dropoff: "Mall", price: 8, status: "Pending"},
+            {id: 3, pickup: "Hotel", dropoff: "Train Station", price: 12, status: "Pending"}
+        ];
+
+        const ridesBody = document.getElementById("ridesBody");
+
+        function renderRides() {
+            ridesBody.innerHTML = "";
+            rides.forEach((ride, index) => {
+                const row = document.createElement("tr");
+                row.className = ride.status.toLowerCase(); // pending/accepted class
+                row.innerHTML = `
+                    <td>${ride.id}</td>
+                    <td>${ride.pickup}</td>
+                    <td>${ride.dropoff}</td>
+                    <td>$${ride.price}</td>
+                    <td>${ride.status}</td>
+                    <td>
+                        ${ride.status === "Pending" ? `<button class="btn accept-btn" onclick="acceptRide(${index})">Accept</button>` : ""}
+                    </td>
+                `;
+                ridesBody.appendChild(row);
+            });
+        }
+
+        function acceptRide(index) {
+            rides[index].status = "Accepted";
+            renderRides();
+            // Highlight accepted row
+            const row = ridesBody.children[index];
+            row.classList.add("highlight");
+            setTimeout(() => row.classList.remove("highlight"), 1500);
+        }
+
+        // Add New Ride button
+        document.getElementById("addRideBtn").addEventListener("click", () => {
+            const newId = rides.length + 1;
+            const pickup = prompt("Enter Pickup Location:");
+            const dropoff = prompt("Enter Dropoff Location:");
+            const price = prompt("Enter Price:");
+            if(pickup && dropoff && price){
+                rides.push({id: newId, pickup, dropoff, price: parseFloat(price), status: "Pending"});
+                renderRides();
+            }
+        });
+
+        renderRides();
+
+        // Logout
+        document.getElementById("logoutBtn").addEventListener("click", function() {
+            localStorage.removeItem("driverName");
+        });
+    </script>
+</body>
+</html>

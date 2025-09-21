@@ -1,0 +1,126 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1abc9c, #16a085);
+}
+
+/* Login & Dashboard Containers */
+.login-container, .dashboard-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Login Card */
+.login-card {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 15px;
+    width: 300px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    outline: none;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 10px;
+    background: #16a085;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #1abc9c;
+}
+
+/* Table styles */
+.rides-table {
+    width: 100%;
+    max-width: 600px;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.rides-table th, .rides-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.rides-table th {
+    background: #16a085;
+    color: #fff;
+}
+
+/* Status colors */
+td.pending {
+    color: orange;
+    font-weight: 600;
+}
+
+td.accepted {
+    color: green;
+    font-weight: 600;
+}
+
+.accept-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background: #1abc9c;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.accept-btn:hover {
+    background: #16a085;
+}
+
+@keyframes highlightRow {
+    0% { background-color: #d4f7dc; }
+    50% { background-color: #a0e9a3; }
+    100% { background-color: transparent; }
+}
+
+.highlight {
+    animation: highlightRow 1.5s ease;
+}
+
+/* Status colors */
+td.pending {
+    color: orange;
+    font-weight: 600;
+    transition: all 0.5s ease;
+}
+
+td.accepted {
+    color: green;
+    font-weight: 600;
+    transition: all 0.5s ease;
+}
+
+.option{
+    background-color:  rgba(0,0,0,0.2);
+}

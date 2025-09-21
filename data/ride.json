@@ -1,0 +1,5 @@
+[
+    {"id":1,"pickup":"Downtown","dropoff":"Airport","price":15,"status":"Pending"},
+    {"id":2,"pickup":"Station","dropoff":"Mall","price":8,"status":"Pending"},
+    {"id":3,"pickup":"Hotel","dropoff":"Train Station","price":12,"status":"Pending"}
+]

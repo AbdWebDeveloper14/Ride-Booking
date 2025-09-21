@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cab Booking Lite — Offer your fare</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Small custom tweaks */
+    .glass {
+      backdrop-filter: blur(6px);
+      background-color: rgba(255,255,255,0.06);
+    }
+    .option{
+      background-color:  rgba(0,0,0,0.2);
+      color: black;
+    }
+    .option:focus{
+      background-color: green;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-green-900 via-black to-green-800 text-white">
+<a href="./login.html" class="login-btn fixed bottom-6 right-6 bg-green-600 hover:bg-green-500 text-white font-semibold py-3 px-5 rounded-full shadow-lg transition">Driver Login</a>
+  <!-- Top bar -->
+  <header class="bg-green-700/95">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="bg-white rounded-lg p-2">
+          <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80
+" alt="logo" class="w-8 h-8"/>
+        </div>
+        <h1 class="text-xl font-bold text-white">Cab Booking Lite</h1>
+      </div>
+      <nav class="flex items-center gap-4 d-lg-flex d-md-flex d-none">
+        <p class="text-white/90 hover:underline cursor-pointer" href="#">City rides</p>
+        <p class="text-white/90 hover:underline cursor-pointer" href="#">Freight</p>
+        <p class="px-4 py-2 rounded-md bg-white text-green-800 font-semibold cursor-pointer" href="#find">Offer a fare</p>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero / search area (inDrive style: pick A, B + offer price) -->
+  <main class="max-w-6xl mx-auto px-4 py-10">
+    <section class="grid lg:grid-cols-2 gap-8 items-center">
+      <!-- Left: form -->
+      <div class="space-y-6">
+        <h2 class="text-4xl font-extrabold">Get a ride — Offer your price</h2>
+        <p class="text-gray-200 max-w-xl">
+          Enter pickup and dropoff, suggest how much you want to pay — drivers nearby will see your offer and can accept it or make a counter-offer.
+        </p>
+
+        <div id="find" class="glass rounded-xl p-6 shadow-lg border border-white/10">
+          <form id="offerForm" class="space-y-4">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-sm text-white/90">Pickup</label>
+                <input id="pickup" required type="text" placeholder="e.g. Gulshan-e-Iqbal" 
+                       class="mt-1 w-full rounded-md p-3 bg-white/5 border border-white/10 focus:outline-none" />
+              </div>
+              <div>
+                <label class="text-sm text-white/90">Dropoff</label>
+                <input id="dropoff" required type="text" placeholder="e.g. Clifton" 
+                       class="mt-1 w-full rounded-md p-3 bg-white/5 border border-white/10 focus:outline-none" />
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-sm text-white/90">Vehicle type</label>
+                <select id="carType" class="mt-1 w-full rounded-md p-3 bg-white/5 border border-white/10">
+                  <option class="option" value="economy">Economy</option>
+                  <option class="option" value="comfort">Comfort</option>
+                  <option class="option" value="xl">XL</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-sm text-white/90">Your offer (PKR)</label>
+                <input id="offerPrice" required type="number" min="0" placeholder="Enter your fare" 
+                       class="mt-1 w-full rounded-md p-3 bg-white/5 border border-white/10 focus:outline-none" />
+              </div>
+            </div>
+
+            <div class="flex gap-3 items-center">
+              <button type="submit" class="px-5 py-3 rounded-md bg-green-600 hover:bg-green-500 font-semibold">
+                Publish offer
+              </button>
+              <button id="autoPrice" type="button" class="px-4 py-3 rounded-md bg-white text-green-800 font-semibold">
+                Suggest price
+              </button>
+              <div id="statusMsg" class="text-sm text-white/80"></div>
+            </div>
+          </form>
+
+        
+        </div>
+      </div>
+
+      <!-- Right: large car image + features -->
+      <div class="flex flex-col items-center lg:items-end gap-6">
+        <div class="w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl">
+          <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80
+" 
+               alt="car" class="w-full h-64 object-cover"/>
+        </div>
+
+        <div class="w-full max-w-lg grid grid-cols-2 gap-4">
+          <div class="bg-white/5 rounded-lg p-4">
+            <h4 class="font-semibold">Choose driver</h4>
+            <p class="text-sm text-white/80">View ratings and vehicle info before you ride.</p>
+          </div>
+          <div class="bg-white/5 rounded-lg p-4">
+            <h4 class="font-semibold">Pay how you like</h4>
+            <p class="text-sm text-white/80">Cash or card (add payment later).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nearby drivers / offers list (cards) -->
+    <section class="mt-12">
+      <div class="flex items-center justify-between">
+        <h3 class="text-2xl font-bold">Drivers near you</h3>
+        <div class="text-sm text-white/80">3 drivers available</div>
+      </div>
+
+      <div id="driversList" class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- driver cards inserted by JS -->
+      </div>
+    </section>
+
+    <!-- Recent offers table (demo) -->
+    <section class="mt-10">
+      <h3 class="text-xl font-semibold">Recent offers (demo)</h3>
+      <div class="mt-3 overflow-x-auto bg-white/5 rounded-lg p-3">
+        <table class="min-w-full text-sm">
+          <thead class="text-white/80 text-left">
+            <tr>
+              <th class="py-2">Time</th>
+              <th class="py-2">Pickup → Drop</th>
+              <th class="py-2">Offer (PKR)</th>
+              <th class="py-2">Status</th>
+            </tr>
+          </thead>
+          <tbody id="offersTable" class="text-white/90">
+            <!-- rows from JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-black mt-12">
+    <div class="max-w-6xl mx-auto px-4 py-6 text-gray-300 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div>© 2025 RideNow — inspired UI</div>
+      <div class="text-sm">Made by Muhammad Abdullah</div>
+    </div>
+  </footer>
+
+  <script src="../static/java-script/app.js"></script>
+</body>
+</html>
